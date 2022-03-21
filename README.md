@@ -15,7 +15,7 @@ A brief description of what this project does and who it's for
 
 ## Prerequisites
 
-* [nodejs versión 10](http://www.google.com)
+* [nodejs versión 14](https://nodejs.org/en/)
 
 
 ## Environment Variables
