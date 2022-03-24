@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Agent } from 'src/sales/models/agent.entity';
 import { Customer } from 'src/sales/models/customer.entity';
 
@@ -38,10 +38,16 @@ export class Order {
   })
   ordDate: number;
 
-  @ManyToOne(() => Customer)
+  @ManyToOne(() => Customer, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'cust_code' })
   custCode: Customer;
 
-  @ManyToOne(() => Agent)
+  @ManyToOne(() => Agent, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 
   @Column({

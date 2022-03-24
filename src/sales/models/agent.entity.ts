@@ -5,7 +5,7 @@ import { Customer } from 'src/sales/models/customer.entity';
 export class Agent {
   @PrimaryColumn({
     name: 'agent_code',
-    type: 'varchar',
+    type: 'char',
     length: 6,
     nullable: false,
   })
@@ -13,7 +13,7 @@ export class Agent {
 
   @Column({
     name: 'agent_name',
-    type: 'varchar',
+    type: 'char',
     length: 40,
     nullable: true,
     default: null,
@@ -22,7 +22,7 @@ export class Agent {
 
   @Column({
     name: 'working_area',
-    type: 'varchar',
+    type: 'char',
     length: 35,
     nullable: true,
     default: null,
@@ -41,7 +41,7 @@ export class Agent {
 
   @Column({
     name: 'phone_no',
-    type: 'varchar',
+    type: 'char',
     length: 15,
     nullable: true,
     default: null,
@@ -51,7 +51,7 @@ export class Agent {
   @Column({
     name: 'country',
     type: 'varchar',
-    length: 40,
+    length: 25,
     nullable: true,
     default: null,
   })
