@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Agent } from 'src/sales/models/agent.entity';
 
 @Entity({ name: 'customers' })
 export class Customer {
   @PrimaryColumn({
     name: 'cust_code',
-    type: 'varchar',
+    type: 'char',
     length: 6,
     nullable: false,
   })
@@ -13,7 +13,7 @@ export class Customer {
 
   @Column({
     name: 'cust_name',
-    type: 'varchar',
+    type: 'char',
     length: 40,
     nullable: false,
   })
@@ -97,6 +97,9 @@ export class Customer {
   })
   phoneNo: string;
 
-  @ManyToOne(() => Agent)
+  @ManyToOne(() => Agent, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 }
