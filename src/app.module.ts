@@ -15,8 +15,8 @@ import { SalesModule } from './sales/sales.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_DATABASE,
-      entities: [],
-      synchronize: true,
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: false,
     }),
 
     SalesModule,
