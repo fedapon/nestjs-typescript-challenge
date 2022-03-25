@@ -11,7 +11,7 @@ export class Order {
     scale: 0,
     nullable: false,
   })
-  ordNum: string;
+  ordNum: number;
 
   @Column({
     name: 'ord_amount',
@@ -36,7 +36,7 @@ export class Order {
     type: 'date',
     nullable: false,
   })
-  ordDate: number;
+  ordDate: Date;
 
   @ManyToOne(() => Customer, (custCode) => custCode.custCode, {
     onDelete: 'NO ACTION',
