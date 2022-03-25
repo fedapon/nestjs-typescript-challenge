@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Agent } from 'src/sales/models/agent.entity';
-import { type } from 'os';
 
 @Entity({ name: 'customers' })
 export class Customer {
@@ -98,10 +97,7 @@ export class Customer {
   })
   phoneNo: string;
 
-  @ManyToOne(() => Agent, (agent) => agent.agentCode, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => Agent, (agent) => agent.agentCode)
   @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 }

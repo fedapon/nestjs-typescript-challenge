@@ -38,17 +38,11 @@ export class Order {
   })
   ordDate: Date;
 
-  @ManyToOne(() => Customer, (custCode) => custCode.custCode, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => Customer, (custCode) => custCode.custCode)
   @JoinColumn({ name: 'cust_code' })
   custCode: Customer;
 
-  @ManyToOne(() => Agent, (agentCode) => agentCode.agentCode, {
-    onDelete: 'NO ACTION',
-    onUpdate: 'CASCADE',
-  })
+  @ManyToOne(() => Agent, (agentCode) => agentCode.agentCode)
   @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 
