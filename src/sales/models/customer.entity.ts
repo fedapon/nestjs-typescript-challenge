@@ -98,7 +98,10 @@ export class Customer {
   })
   phoneNo: string;
 
-  @ManyToOne(() => Agent, (agent) => agent.agentCode)
+  @ManyToOne(() => Agent, (agent) => agent.agentCode, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 }
