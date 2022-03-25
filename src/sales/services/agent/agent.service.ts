@@ -14,7 +14,12 @@ export class AgentService {
   }
 
   async findOneById(agentCode): Promise<Agent | undefined> {
-    return this.repository.findOne(agentCode);
+    return this.repository.findOne({
+      where: {
+        agentCode,
+      },
+      relations: ['customers'],
+    });
   }
 
   async create(createAgentDto: CreateAgentDto): Promise<Agent> {
