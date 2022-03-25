@@ -57,6 +57,6 @@ export class Agent {
   })
   country: string;
 
-  @OneToMany(() => Customer, (customer) => customer.custCode)
+  @OneToMany(() => Customer, (customer) => customer.agentCode)
   customers: Customer[];
 }

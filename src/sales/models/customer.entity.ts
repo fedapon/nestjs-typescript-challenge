@@ -97,7 +97,7 @@ export class Customer {
   })
   phoneNo: string;
 
-  @ManyToOne(() => Agent, (agent) => agent.agentCode)
+  @ManyToOne(() => Agent, (agent) => agent.customers)
   @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
 }
