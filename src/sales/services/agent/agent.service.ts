@@ -7,29 +7,29 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class AgentService {
-  constructor(@InjectRepository(Agent) private agentRepo: Repository<Agent>) {}
+  constructor(@InjectRepository(Agent) private repository: Repository<Agent>) {}
 
   async findAll(): Promise<Agent[] | undefined> {
-    return this.agentRepo.find();
+    return this.repository.find();
   }
 
   async findOneById(agentCode): Promise<Agent | undefined> {
-    return this.agentRepo.findOne(agentCode);
+    return this.repository.findOne(agentCode);
   }
 
   async create(createAgentDto: CreateAgentDto): Promise<Agent> {
-    const agent: Agent = await this.agentRepo.create(createAgentDto);
-    return await this.agentRepo.save(agent);
+    const agent: Agent = await this.repository.create(createAgentDto);
+    return await this.repository.save(agent);
   }
 
   async update(
     agentCode,
     updateAgentDto: UpdateAgentDto,
   ): Promise<UpdateResult> {
-    return this.agentRepo.update(agentCode, updateAgentDto);
+    return this.repository.update(agentCode, updateAgentDto);
   }
 
   async delete(agentCode: string): Promise<DeleteResult> {
-    return this.agentRepo.delete(agentCode);
+    return this.repository.delete(agentCode);
   }
 }
