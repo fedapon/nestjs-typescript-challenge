@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateOrderDto } from 'src/sales/controllers/order/dto/create-order.dto';
 import { UpdateOrderDto } from 'src/sales/controllers/order/dto/update-order.dto';
+import { Customer } from 'src/sales/models/customer.entity';
 import { Order } from 'src/sales/models/order.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
@@ -55,6 +56,16 @@ export class OrderService {
       .select('orders.agent_code', 'agentCode')
       .addSelect('SUM(orders.ord_amount)', 'totalOrdAmount')
       .groupBy('orders.agent_code')
+      .getRawMany();
+  }
+
+  async totalAmountByCountry(): Promise<any> {
+    return await this.repository
+      .createQueryBuilder('orders')
+      .leftJoin(Customer, 'customer', 'orders.cust_code = customer.cust_code')
+      .select('customer.cust_country', 'custCountry')
+      .addSelect('SUM(orders.ord_amount)', 'totalOrdAmount')
+      .groupBy('customer.cust_country')
       .getRawMany();
   }
 }
