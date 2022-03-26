@@ -39,4 +39,13 @@ export class OrderService {
   async delete(ordNum: number): Promise<DeleteResult> {
     return this.repository.delete(ordNum);
   }
+
+  async totalAmountByCustomer(): Promise<any> {
+    return await this.repository
+      .createQueryBuilder('orders')
+      .select('orders.cust_code', 'custCode')
+      .addSelect('SUM(orders.ord_amount)', 'totalOrdAmount')
+      .groupBy('orders.cust_code')
+      .getRawMany();
+  }
 }

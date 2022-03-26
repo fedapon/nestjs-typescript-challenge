@@ -18,7 +18,12 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 export class OrderController {
   constructor(private orderService: OrderService) {}
 
-  @Get()
+  @Get('total-amount-by-customer')
+  async totalAmoutByCustomer() {
+    return await this.orderService.totalAmountByCustomer();
+  }
+
+  @Get('/')
   async findAll() {
     return this.orderService.findAll();
   }
