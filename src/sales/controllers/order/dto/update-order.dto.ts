@@ -1,14 +1,12 @@
 import {
-  IsDate,
   IsDateString,
   IsNotEmpty,
-  IsNumber,
   IsNumberString,
   IsOptional,
   MaxLength,
 } from 'class-validator';
-import { Agent } from 'src/sales/models/agent.entity';
-import { Customer } from 'src/sales/models/customer.entity';
+import { Agent } from '../../../models/agent.entity';
+import { Customer } from '../../../models/customer.entity';
 
 export class UpdateOrderDto {
   @IsOptional()

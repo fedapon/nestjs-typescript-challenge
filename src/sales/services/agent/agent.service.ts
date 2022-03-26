@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateAgentDto } from 'src/sales/controllers/agent/dto/create-agent.dto';
-import { UpdateAgentDto } from 'src/sales/controllers/agent/dto/update-agent.dto';
-import { Agent } from 'src/sales/models/agent.entity';
+import { CreateAgentDto } from '../../controllers/agent/dto/create-agent.dto';
+import { UpdateAgentDto } from '../../controllers/agent/dto/update-agent.dto';
+import { Agent } from '../../models/agent.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()

@@ -5,10 +5,10 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { CreateOrderDto } from 'src/sales/controllers/order/dto/create-order.dto';
-import { UpdateOrderDto } from 'src/sales/controllers/order/dto/update-order.dto';
-import { Customer } from 'src/sales/models/customer.entity';
-import { Order } from 'src/sales/models/order.entity';
+import { CreateOrderDto } from '../../controllers/order/dto/create-order.dto';
+import { UpdateOrderDto } from '../../controllers/order/dto/update-order.dto';
+import { Customer } from '../../models/customer.entity';
+import { Order } from '../../models/order.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()

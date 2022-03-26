@@ -8,8 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { Customer } from 'src/sales/models/customer.entity';
-import { CustomerService } from 'src/sales/services/customer/customer.service';
+import { Customer } from '../../models/customer.entity';
+import { CustomerService } from '../../services/customer/customer.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';

@@ -5,7 +5,7 @@ import {
   IsOptional,
   MaxLength,
 } from 'class-validator';
-import { Agent } from 'src/sales/models/agent.entity';
+import { Agent } from '../../../models/agent.entity';
 
 export class UpdateCustomerDto {
   @IsOptional()

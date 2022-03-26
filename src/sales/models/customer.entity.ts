@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
-import { Agent } from 'src/sales/models/agent.entity';
+import { Agent } from './agent.entity';
 
 @Entity({ name: 'customers' })
 export class Customer {

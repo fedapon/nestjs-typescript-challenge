@@ -8,8 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { AgentService } from 'src/sales/services/agent/agent.service';
-import { Agent } from 'src/sales/models/agent.entity';
+import { AgentService } from '../../services/agent/agent.service';
+import { Agent } from '../../models/agent.entity';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';

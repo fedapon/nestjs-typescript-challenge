@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCustomerDto } from 'src/sales/controllers/customer/dto/create-customer.dto';
-import { UpdateCustomerDto } from 'src/sales/controllers/customer/dto/update-customer.dto';
-import { Customer } from 'src/sales/models/customer.entity';
+import { CreateCustomerDto } from '../../controllers/customer/dto/create-customer.dto';
+import { UpdateCustomerDto } from '../../controllers/customer/dto/update-customer.dto';
+import { Customer } from '../../models/customer.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()

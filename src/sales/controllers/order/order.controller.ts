@@ -13,12 +13,12 @@ import {
   Req,
 } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
-import { Order } from 'src/sales/models/order.entity';
-import { OrderService } from 'src/sales/services/order/order.service';
+import { Order } from '../../models/order.entity';
+import { OrderService } from '../../services/order/order.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import salesConstants from 'src/constants/sales.constants';
+import salesConstants from '../../../constants/sales.constants';
 import { Request } from 'express';
 
 @Controller('orders')
