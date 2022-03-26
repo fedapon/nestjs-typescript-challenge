@@ -15,9 +15,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Tandamos - challenge-nodejs-typescript')
-    .addTag('agents')
-    .addTag('customers')
-    .addTag('orders')
+    .addTag('Agents')
+    .addTag('Customers')
+    .addTag('Orders')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);
