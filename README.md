@@ -1,7 +1,7 @@
 
-# Project Title
+# challenge-nodejs-typescript
 
-A brief description of what this project does and who it's for
+This project is a Nest.js challenge for Tandamos. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customer, by agent, or by country.
 
 
 ## Table of Contents
@@ -22,9 +22,12 @@ A brief description of what this project does and who it's for
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`API_KEY`
-
-`ANOTHER_API_KEY`
+`PORT`
+`DB_HOST`
+`DB_PORT`
+`DB_USER`
+`DB_PASS`
+`DB_DATABASE`
 
 
 ## Installation
@@ -32,13 +35,13 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://gitlab.com/tandamos/challenge-nodejs-typscript.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd challenge-nodejs-typscript
 ```
 
 ```bash
