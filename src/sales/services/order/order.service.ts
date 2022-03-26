@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import { CreateOrderDto } from 'src/sales/controllers/order/dto/create-order.dto';
 import { UpdateOrderDto } from 'src/sales/controllers/order/dto/update-order.dto';
 import { Customer } from 'src/sales/models/customer.entity';
@@ -10,8 +15,8 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 export class OrderService {
   constructor(@InjectRepository(Order) private repository: Repository<Order>) {}
 
-  async findAll(): Promise<Order[] | undefined> {
-    return this.repository.find({
+  async findAll(options: IPaginationOptions): Promise<Pagination<Order>> {
+    return paginate<Order>(this.repository, options, {
       relations: ['agentCode', 'custCode'],
     });
   }

@@ -1,18 +1,25 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
+  Req,
 } from '@nestjs/common';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { Order } from 'src/sales/models/order.entity';
 import { OrderService } from 'src/sales/services/order/order.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import salesConstants from 'src/constants/sales.constants';
+import { Request } from 'express';
 
 @Controller('orders')
 export class OrderController {
@@ -34,8 +41,16 @@ export class OrderController {
   }
 
   @Get('/')
-  async findAll() {
-    return this.orderService.findAll();
+  async findAll(
+    @Req() req: Request,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: 1,
+  ): Promise<Pagination<Order>> {
+    const route = `${req.protocol}://${req.hostname}:${process.env.PORT}${req.path}`;
+    return this.orderService.findAll({
+      page,
+      limit: salesConstants.PAGINATION_ITEMS_PER_PAGE,
+      route,
+    });
   }
 
   @Get(':ordNum')
