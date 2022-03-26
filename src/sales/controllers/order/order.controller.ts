@@ -23,6 +23,11 @@ export class OrderController {
     return await this.orderService.totalAmountByCustomer();
   }
 
+  @Get('total-amount-by-agent')
+  async totalAmoutByAgent() {
+    return await this.orderService.totalAmountByAgent();
+  }
+
   @Get('/')
   async findAll() {
     return this.orderService.findAll();

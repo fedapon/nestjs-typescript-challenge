@@ -48,4 +48,13 @@ export class OrderService {
       .groupBy('orders.cust_code')
       .getRawMany();
   }
+
+  async totalAmountByAgent(): Promise<any> {
+    return await this.repository
+      .createQueryBuilder('orders')
+      .select('orders.agent_code', 'agentCode')
+      .addSelect('SUM(orders.ord_amount)', 'totalOrdAmount')
+      .groupBy('orders.agent_code')
+      .getRawMany();
+  }
 }
