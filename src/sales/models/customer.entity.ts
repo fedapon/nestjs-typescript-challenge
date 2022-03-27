@@ -1,8 +1,12 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Agent } from './agent.entity';
 
 @Entity({ name: 'customers' })
 export class Customer {
+  @ApiProperty({
+    example: 'C00001',
+  })
   @PrimaryColumn({
     name: 'cust_code',
     type: 'char',
@@ -11,6 +15,9 @@ export class Customer {
   })
   custCode: string;
 
+  @ApiProperty({
+    example: 'Charles',
+  })
   @Column({
     name: 'cust_name',
     type: 'char',
@@ -19,6 +26,9 @@ export class Customer {
   })
   custName: string;
 
+  @ApiPropertyOptional({
+    example: 'New York',
+  })
   @Column({
     name: 'cust_city',
     type: 'varchar',
@@ -28,6 +38,9 @@ export class Customer {
   })
   custCity: string;
 
+  @ApiProperty({
+    example: 'New York',
+  })
   @Column({
     name: 'working_area',
     type: 'varchar',
@@ -36,6 +49,9 @@ export class Customer {
   })
   workingArea: string;
 
+  @ApiProperty({
+    example: 'USA',
+  })
   @Column({
     name: 'cust_country',
     type: 'varchar',
@@ -44,6 +60,9 @@ export class Customer {
   })
   custCountry: string;
 
+  @ApiPropertyOptional({
+    example: '2',
+  })
   @Column({
     name: 'grade',
     type: 'integer',
@@ -53,6 +72,9 @@ export class Customer {
   })
   grade: number;
 
+  @ApiProperty({
+    example: '3000',
+  })
   @Column({
     name: 'opening_amt',
     type: 'decimal',
@@ -62,6 +84,9 @@ export class Customer {
   })
   openingAmt: number;
 
+  @ApiProperty({
+    example: '500',
+  })
   @Column({
     name: 'receive_amt',
     type: 'decimal',
@@ -71,6 +96,9 @@ export class Customer {
   })
   receiveAmt: number;
 
+  @ApiProperty({
+    example: '2000',
+  })
   @Column({
     name: 'payment_amt',
     type: 'decimal',
@@ -80,6 +108,9 @@ export class Customer {
   })
   paymentAmt: number;
 
+  @ApiProperty({
+    example: '6000',
+  })
   @Column({
     name: 'outstanding_amt',
     type: 'decimal',
@@ -89,6 +120,9 @@ export class Customer {
   })
   outstandingAmt: number;
 
+  @ApiProperty({
+    example: '077-12345674',
+  })
   @Column({
     name: 'phone_no',
     type: 'varchar',
@@ -97,6 +131,9 @@ export class Customer {
   })
   phoneNo: string;
 
+  @ApiProperty({
+    type: () => Agent,
+  })
   @ManyToOne(() => Agent, (agent) => agent.customers)
   @JoinColumn({ name: 'agent_code' })
   agentCode: Agent;
