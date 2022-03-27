@@ -20,7 +20,12 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import salesConstants from '../../../constants/sales.constants';
 import { Request } from 'express';
-import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiExtraModels,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Orders')
 @ApiExtraModels(Order)
@@ -48,6 +53,7 @@ export class OrderController {
 
   @Get('/')
   @ApiOperation({ summary: 'Get all orders (paginated)' })
+  @ApiQuery({ name: 'page', required: false })
   async findAll(
     @Req() req: Request,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: 1,
