@@ -50,7 +50,32 @@ describe('SalesController (e2e)', () => {
       leftJoin: jest.fn().mockReturnThis(),
       limit: jest.fn().mockReturnThis(),
       groupBy: jest.fn().mockReturnThis(),
-      getRawMany: jest.fn().mockReturnValue({}),
+      getRawMany: jest
+        .fn()
+        .mockImplementationOnce(() =>
+          Promise.resolve([
+            {
+              custCode: 'C00001',
+              totalOrdAmount: '3000.00',
+            },
+          ]),
+        )
+        .mockImplementationOnce(() =>
+          Promise.resolve([
+            {
+              agentCode: 'A001',
+              totalOrdAmount: '800.00',
+            },
+          ]),
+        )
+        .mockImplementationOnce(() =>
+          Promise.resolve([
+            {
+              custCountry: 'Australia',
+              totalOrdAmount: '7700.00',
+            },
+          ]),
+        ),
     }),
     paginate: jest.fn().mockResolvedValue({}),
     findOne: jest.fn().mockImplementation(() => Promise.resolve(order)),
@@ -141,10 +166,10 @@ describe('SalesController (e2e)', () => {
   it('/orders (UPDATE)', () => {
     return request(app.getHttpServer())
       .patch('/orders/200101')
-      .send({ custName: 'Jhon Smith' })
+      .send({ custCode: 'C00001' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
-      .expect({ ordNum: '200101', custName: 'Jhon Smith' });
+      .expect({ ordNum: '200101', custCode: 'C00001' });
   });
 
   it('/orders (UPDATE) should fail because invalid parameter', () => {
@@ -170,20 +195,38 @@ describe('SalesController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/orders/total-amount-by-customer')
       .expect(200)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
+      .expect([
+        {
+          custCode: 'C00001',
+          totalOrdAmount: '3000.00',
+        },
+      ]);
   });
 
   it('should get total amount by agent', () => {
     return request(app.getHttpServer())
       .get('/orders/total-amount-by-agent')
       .expect(200)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
+      .expect([
+        {
+          agentCode: 'A001',
+          totalOrdAmount: '800.00',
+        },
+      ]);
   });
 
   it('should get total amount by country', () => {
     return request(app.getHttpServer())
       .get('/orders/total-amount-by-country')
       .expect(200)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
+      .expect([
+        {
+          custCountry: 'Australia',
+          totalOrdAmount: '7700.00',
+        },
+      ]);
   });
 });
