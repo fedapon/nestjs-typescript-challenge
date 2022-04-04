@@ -18,6 +18,7 @@ export class UpdateAgentDto {
 
   @ApiPropertyOptional({
     example: '0.10',
+    type: String,
   })
   @IsOptional()
   @IsDecimal()

@@ -25,6 +25,7 @@ export class CreateAgentDto {
 
   @ApiPropertyOptional({
     example: '0.10',
+    type: String,
   })
   @IsOptional()
   @IsDecimal()
