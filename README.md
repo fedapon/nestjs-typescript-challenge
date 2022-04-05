@@ -1,6 +1,16 @@
 # challenge-nodejs-typescript
 
-This project is a Nest.js challenge for Tandamos. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customer, by agent, or by country.
+This project is a Nest.js challenge for Tandamos. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customers, by agents, or by countries.
+
+The endpoints of the resources are:
+
+- [ ] /agents
+- [ ] /customers
+- [ ] /orders
+
+The documentation (swagger) can be found at:
+
+- [ ] /api/docs
 
 ## Table of Contents
 
@@ -43,7 +53,7 @@ Go to the project directory
   npm install
 ```
 
-Start the server
+To start the server
 
 ```bash
   npm run start
@@ -54,14 +64,6 @@ Start the server
 To run tests, run the following command
 
 ```bash
-  npm run test     // Unit Tests
-  npm run test:e2e // Integration Tests
-```
-
-## Deployment
-
-To deploy this project run
-
-```bash
-  npm run deploy
+  npm run test     		// Unit Tests
+  npm run test:e2e 		// Integration Tests
 ```
