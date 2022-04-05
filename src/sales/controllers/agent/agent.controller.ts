@@ -81,6 +81,16 @@ export class AgentController {
       },
     },
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Agent not found',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'Not Found',
+      },
+    },
+  })
   async findById(@Param('agentCode') agentCode: string) {
     const data = await this.agentService.findOneById(agentCode);
     if (!data) {
