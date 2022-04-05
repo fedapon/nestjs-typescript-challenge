@@ -53,6 +53,7 @@ export class CreateCustomerDto {
 
   @ApiProperty({
     example: '3000',
+    type: String,
   })
   @IsNotEmpty()
   @IsDecimal()
@@ -60,6 +61,7 @@ export class CreateCustomerDto {
 
   @ApiProperty({
     example: '500',
+    type: String,
   })
   @IsNotEmpty()
   @IsDecimal()
@@ -67,6 +69,7 @@ export class CreateCustomerDto {
 
   @ApiProperty({
     example: '2000',
+    type: String,
   })
   @IsNotEmpty()
   @IsDecimal()
@@ -74,6 +77,7 @@ export class CreateCustomerDto {
 
   @ApiProperty({
     example: '6000',
+    type: String,
   })
   @IsNotEmpty()
   @IsDecimal()

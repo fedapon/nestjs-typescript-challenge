@@ -49,6 +49,7 @@ export class UpdateCustomerDto {
 
   @ApiPropertyOptional({
     example: '3000',
+    type: String,
   })
   @IsOptional()
   @IsNotEmpty()
@@ -57,6 +58,7 @@ export class UpdateCustomerDto {
 
   @ApiPropertyOptional({
     example: '500',
+    type: String,
   })
   @IsOptional()
   @IsNotEmpty()
@@ -65,6 +67,7 @@ export class UpdateCustomerDto {
 
   @ApiPropertyOptional({
     example: '2000',
+    type: String,
   })
   @IsOptional()
   @IsNotEmpty()
@@ -73,6 +76,7 @@ export class UpdateCustomerDto {
 
   @ApiPropertyOptional({
     example: '6000',
+    type: String,
   })
   @IsOptional()
   @IsNotEmpty()
