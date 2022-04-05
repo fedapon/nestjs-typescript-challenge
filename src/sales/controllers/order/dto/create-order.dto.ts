@@ -11,18 +11,21 @@ import { Customer } from '../../../models/customer.entity';
 export class CreateOrderDto {
   @ApiProperty({
     example: '200101',
+    type: String,
   })
   @IsNumberString()
   ordNum: number;
 
   @ApiProperty({
     example: '3000',
+    type: String,
   })
   @IsNumberString()
   ordAmount: number;
 
   @ApiProperty({
     example: '1000',
+    type: String,
   })
   @IsNumberString()
   advanceAmount: number;

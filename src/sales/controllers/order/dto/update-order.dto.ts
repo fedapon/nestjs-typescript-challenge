@@ -12,6 +12,7 @@ import { Customer } from '../../../models/customer.entity';
 export class UpdateOrderDto {
   @ApiPropertyOptional({
     example: '3000',
+    type: String,
   })
   @IsOptional()
   @IsNumberString()
@@ -19,6 +20,7 @@ export class UpdateOrderDto {
 
   @ApiPropertyOptional({
     example: '1000',
+    type: String,
   })
   @IsOptional()
   @IsNumberString()
