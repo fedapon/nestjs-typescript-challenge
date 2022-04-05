@@ -49,6 +49,12 @@ Go to the project directory
   cd challenge-nodejs-typscript
 ```
 
+Checkout to my challenge branch:
+
+```bash
+  git checkout fernando-pons
+```
+
 ```bash
   npm install
 ```
