@@ -16,7 +16,7 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Customers')
-@Controller('customers')
+@Controller('/api/customers')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
 

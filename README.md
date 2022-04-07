@@ -4,9 +4,9 @@ This project is a Nest.js challenge for Tandamos. It contains three resources (a
 
 The endpoints of the resources are:
 
-- [ ] /agents
-- [ ] /customers
-- [ ] /orders
+- [ ] /api/agents
+- [ ] /api/customers
+- [ ] /api/orders
 
 The documentation (swagger) can be found at:
 

@@ -29,7 +29,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('Orders')
-@Controller('orders')
+@Controller('/api/orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}
 

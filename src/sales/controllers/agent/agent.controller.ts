@@ -16,7 +16,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Agents')
-@Controller('agents')
+@Controller('/api/agents')
 export class AgentController {
   constructor(private agentService: AgentService) {}
 
