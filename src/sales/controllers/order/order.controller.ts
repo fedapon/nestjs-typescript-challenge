@@ -22,6 +22,7 @@ import salesConstants from '../../../constants/sales.constants';
 import { Request } from 'express';
 import {
   ApiBody,
+  ApiExtraModels,
   ApiOperation,
   ApiQuery,
   ApiResponse,
@@ -29,6 +30,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('Orders')
+@ApiExtraModels(Order)
 @Controller('/api/orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}

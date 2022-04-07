@@ -13,9 +13,16 @@ import { Agent } from '../../models/agent.entity';
 import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiExtraModels,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Agents')
+@ApiExtraModels(Agent)
 @Controller('/api/agents')
 export class AgentController {
   constructor(private agentService: AgentService) {}
