@@ -61,51 +61,51 @@ describe('SalesController (e2e)', () => {
     await app.init();
   });
 
-  it('/agents (GET)', () => {
+  it('/api/agents (GET)', () => {
     return request(app.getHttpServer())
-      .get('/agents')
+      .get('/api/agents')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([agent]);
   });
 
-  it('/agents (POST)', () => {
+  it('/api/agents (POST)', () => {
     return request(app.getHttpServer())
-      .post('/agents')
+      .post('/api/agents')
       .send(agent)
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect(agent);
   });
 
-  it('/agents (POST) should fail because missing parameters', () => {
+  it('/api/agents (POST) should fail because missing parameters', () => {
     return request(app.getHttpServer())
-      .post('/agents')
+      .post('/api/agents')
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/agents (UPDATE)', () => {
+  it('/api/agents (UPDATE)', () => {
     return request(app.getHttpServer())
-      .patch('/agents/A001')
+      .patch('/api/agents/A001')
       .send({ agentName: 'Jhon Smith' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({ agentCode: 'A001', agentName: 'Jhon Smith' });
   });
 
-  it('/agents (UPDATE) should fail because invalid parameter', () => {
+  it('/api/agents (UPDATE) should fail because invalid parameter', () => {
     return request(app.getHttpServer())
-      .patch('/agents/A001')
+      .patch('/api/agents/A001')
       .send({ agentName: 1 })
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/agents (DELETE)', () => {
+  it('/api/agents (DELETE)', () => {
     return request(app.getHttpServer())
-      .delete('/agents/A001')
+      .delete('/api/agents/A001')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({

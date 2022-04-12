@@ -119,9 +119,9 @@ describe('SalesController (e2e)', () => {
     await app.init();
   });
 
-  it('/orders (GET)', () => {
+  it('/api/orders (GET)', () => {
     return request(app.getHttpServer())
-      .get('/orders')
+      .get('/api/orders')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
@@ -146,43 +146,43 @@ describe('SalesController (e2e)', () => {
       });
   });
 
-  it('/orders (POST)', () => {
+  it('/api/orders (POST)', () => {
     return request(app.getHttpServer())
-      .post('/orders')
+      .post('/api/orders')
       .send(order)
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect(order);
   });
 
-  it('/orders (POST) should fail because missing parameters', () => {
+  it('/api/orders (POST) should fail because missing parameters', () => {
     return request(app.getHttpServer())
-      .post('/orders')
+      .post('/api/orders')
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/orders (UPDATE)', () => {
+  it('/api/orders (UPDATE)', () => {
     return request(app.getHttpServer())
-      .patch('/orders/200101')
+      .patch('/api/orders/200101')
       .send({ custCode: 'C00001' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({ ordNum: '200101', custCode: 'C00001' });
   });
 
-  it('/orders (UPDATE) should fail because invalid parameter', () => {
+  it('/api/orders (UPDATE) should fail because invalid parameter', () => {
     return request(app.getHttpServer())
-      .patch('/orders/200101')
+      .patch('/api/orders/200101')
       .send({ ordAmount: 'A' })
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/orders (DELETE)', () => {
+  it('/api/orders (DELETE)', () => {
     return request(app.getHttpServer())
-      .delete('/orders/200101')
+      .delete('/api/orders/200101')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
@@ -193,7 +193,7 @@ describe('SalesController (e2e)', () => {
 
   it('should get total amount by customer', () => {
     return request(app.getHttpServer())
-      .get('/orders/total-amount-by-customer')
+      .get('/api/orders/total-amount-by-customer')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([
@@ -206,7 +206,7 @@ describe('SalesController (e2e)', () => {
 
   it('should get total amount by agent', () => {
     return request(app.getHttpServer())
-      .get('/orders/total-amount-by-agent')
+      .get('/api/orders/total-amount-by-agent')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([
@@ -219,7 +219,7 @@ describe('SalesController (e2e)', () => {
 
   it('should get total amount by country', () => {
     return request(app.getHttpServer())
-      .get('/orders/total-amount-by-country')
+      .get('/api/orders/total-amount-by-country')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([

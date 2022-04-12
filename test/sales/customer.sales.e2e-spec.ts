@@ -67,51 +67,51 @@ describe('SalesController (e2e)', () => {
     await app.init();
   });
 
-  it('/customers (GET)', () => {
+  it('/api/customers (GET)', () => {
     return request(app.getHttpServer())
-      .get('/customers')
+      .get('/api/customers')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([customer]);
   });
 
-  it('/customers (POST)', () => {
+  it('/api/customers (POST)', () => {
     return request(app.getHttpServer())
-      .post('/customers')
+      .post('/api/customers')
       .send(customer)
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect(customer);
   });
 
-  it('/customers (POST) should fail because missing parameters', () => {
+  it('/api/customers (POST) should fail because missing parameters', () => {
     return request(app.getHttpServer())
-      .post('/customers')
+      .post('/api/customers')
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/customers (UPDATE)', () => {
+  it('/api/customers (UPDATE)', () => {
     return request(app.getHttpServer())
-      .patch('/customers/C00001')
+      .patch('/api/customers/C00001')
       .send({ custName: 'Jhon Smith' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({ custCode: 'C00001', custName: 'Jhon Smith' });
   });
 
-  it('/customers (UPDATE) should fail because invalid parameter', () => {
+  it('/api/customers (UPDATE) should fail because invalid parameter', () => {
     return request(app.getHttpServer())
-      .patch('/customers/C00001')
+      .patch('/api/customers/C00001')
       .send({ custName: 1 })
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/customers (DELETE)', () => {
+  it('/api/customers (DELETE)', () => {
     return request(app.getHttpServer())
-      .delete('/customers/C00001')
+      .delete('/api/customers/C00001')
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
