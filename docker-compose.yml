@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  app:
+    image: node:14
+    command: 'npm run start'
+    ports:
+      - '3000:3000'
+    working_dir: '/app'
+    volumes:
+      - './:/app'
+
+  mysql:
+    image: mysql:5.7
+    env_file:
+      - '.env'
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'challenge-nodejs-typescript:/var/lib/mysql'
+      #copy sql script to ceate schemma, tables and demo data
+      - ./scripts/init-data.sql:/docker-entrypoint-initdb.d/init-data.sql
+
+volumes:
+  challenge-nodejs-typescript:
