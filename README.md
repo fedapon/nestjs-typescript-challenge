@@ -1,6 +1,6 @@
 # challenge-nodejs-typescript
 
-This project is a Nest.js challenge for Tandamos. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customers, by agents, or by countries.
+This project is a challenge that uses Nest.js as its framework. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customers, by agents, or by countries.
 
 The endpoints of the resources are:
 
@@ -35,25 +35,28 @@ To run this project, you will need to add the following environment variables to
 `DB_PASS`
 `DB_DATABASE`
 
+And if we want to use docker-compose we have to add:
+
+`MYSQL_ROOT_PASSWORD`
+`MYSQL_USER`
+`MYSQL_PASSWORD`
+`MYSQL_DATABASE`
+
 ## Installation
 
 Clone the project
 
 ```bash
-  git clone https://gitlab.com/tandamos/challenge-nodejs-typscript.git
+  git clone https://github.com/fedapon/challenge-nodejs-typescript
 ```
 
 Go to the project directory
 
 ```bash
-  cd challenge-nodejs-typscript
+  cd challenge-nodejs-typescript
 ```
 
 Checkout to my challenge branch:
-
-```bash
-  git checkout fernando-pons
-```
 
 ```bash
   npm install
@@ -63,6 +66,12 @@ To start the server
 
 ```bash
   npm run start
+```
+
+And if we use docker-compose, instead of the last command, we use
+
+```bash
+  docker-compose up
 ```
 
 ## Running Tests
