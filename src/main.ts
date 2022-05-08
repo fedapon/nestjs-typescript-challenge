@@ -15,10 +15,10 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('challenge-nodejs-typescript')
+    .addTag('Auth')
     .addTag('Agents')
     .addTag('Customers')
     .addTag('Orders')
-    .addTag('Auth')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);
