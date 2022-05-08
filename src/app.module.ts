@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -17,14 +18,12 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_DATABASE,
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
       synchronize: false,
     }),
 
     SalesModule,
-
     AuthModule,
-
     UsersModule,
   ],
   controllers: [AppController],
