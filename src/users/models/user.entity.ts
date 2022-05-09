@@ -32,6 +32,7 @@ export class User {
     name: 'email',
     type: 'char',
     length: 40,
+    unique: true,
     nullable: true,
   })
   email: string;
