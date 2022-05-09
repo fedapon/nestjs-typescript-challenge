@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpException,
+  HttpStatus,
   Post,
   Req,
   UseGuards,
@@ -19,7 +21,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @HttpCode(200)
+  @HttpCode(201)
   @ApiResponse({
     status: 201,
     description: 'Register a new user',
@@ -30,7 +32,21 @@ export class AuthController {
       },
     },
   })
+  @ApiResponse({
+    status: 409,
+    description: 'User already registered',
+    schema: {
+      example: {
+        statusCode: 409,
+        message: 'USER_ALREADY_REGISTERED',
+      },
+    },
+  })
   async register(@Body() createUserDto: CreateUserDto): Promise<any> {
+    const user = await this.authService.userExists(createUserDto.email);
+    if (user) {
+      throw new HttpException('USER_ALREADY_REGISTERED', HttpStatus.CONFLICT);
+    }
     return await this.authService.createUser(createUserDto);
   }
 

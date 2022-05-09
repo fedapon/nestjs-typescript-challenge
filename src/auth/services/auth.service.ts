@@ -31,6 +31,10 @@ export class AuthService {
     };
   }
 
+  async userExists(email: string) {
+    return await this.usersService.findOneByEmail(email);
+  }
+
   async createUser(userDto: CreateUserDto) {
     const user: User = await this.usersService.create(userDto);
     const payload = { userId: user.id, email: user.email };
