@@ -122,4 +122,20 @@ INSERT INTO orders VALUES('200135', '2000.00', '800.00', '2008-09-16', 'C00007',
 INSERT INTO orders VALUES('200131', '900.00', '150.00', '2008-08-26', 'C00012', 'A012', 'SOD');
 INSERT INTO orders VALUES('200133', '1200.00', '400.00', '2008-06-29', 'C00009', 'A002', 'SOD');
 
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` bigint(20) NOT NULL,
+  `first_name` char(40) DEFAULT NULL,
+  `last_name` char(40) DEFAULT NULL,
+  `email` char(40) DEFAULT NULL,
+  `password` char(80) NOT NULL,
+  `created_at` timestamp(6) NULL DEFAULT current_timestamp(6),
+  `updated_at` timestamp(6) NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
+  `deleted_at` timestamp(6) NULL DEFAULT NULL
+) ENGINE=InnoDB;
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `IDX_97672ac88f789774dd47f7c8be` (`email`);
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 SET FOREIGN_KEY_CHECKS=1;
