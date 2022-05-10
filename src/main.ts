@@ -14,7 +14,10 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('challenge-nodejs-typescript')
+    .setTitle('nestjs-typescript-challenge')
+    .setDescription(
+      'This challenge uses Nest.js as its framework to implement three API Rest endpoints (agents, customers and orders) with passportjs authentication.',
+    )
     .addTag('Auth')
     .addTag('Agents')
     .addTag('Customers')
