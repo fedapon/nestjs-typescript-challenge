@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { Order } from '../../models/order.entity';
@@ -21,16 +22,18 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import salesConstants from '../../../constants/sales.constants';
 import { Request } from 'express';
 import {
+  ApiBearerAuth,
   ApiBody,
-  ApiExtraModels,
   ApiOperation,
   ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('Orders')
-@ApiExtraModels(Order)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('/api/orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}

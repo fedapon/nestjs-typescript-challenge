@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { AgentService } from '../../services/agent/agent.service';
 import { Agent } from '../../models/agent.entity';
@@ -14,15 +15,17 @@ import { CreateAgentDto } from './dto/create-agent.dto';
 import { UpdateAgentDto } from './dto/update-agent.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import {
+  ApiBearerAuth,
   ApiBody,
-  ApiExtraModels,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('Agents')
-@ApiExtraModels(Agent)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('/api/agents')
 export class AgentController {
   constructor(private agentService: AgentService) {}
