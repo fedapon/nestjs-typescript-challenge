@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -10,10 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { LocalAuthGuard } from './../guards/local-auth.guard';
-import { JwtAuthGuard } from './../guards/jwt-auth.guard';
 import { AuthService } from './../services/auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller('api/auth')
@@ -83,12 +81,5 @@ export class AuthController {
   })
   async login(@Req() req) {
     return this.authService.login(req.user);
-  }
-
-  @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  getProfile(@Req() req) {
-    return { messaje: 'Protected endpoint', ...req.user };
   }
 }

@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { Customer } from '../../models/customer.entity';
 import { CustomerService } from '../../services/customer/customer.service';
@@ -14,15 +15,17 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import {
+  ApiBearerAuth,
   ApiBody,
-  ApiExtraModels,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('Customers')
-@ApiExtraModels(Customer)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('/api/customers')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
