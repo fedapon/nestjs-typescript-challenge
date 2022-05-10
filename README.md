@@ -1,12 +1,17 @@
-# challenge-nodejs-typescript
+# nestjs-typescript-challenge
 
-This project is a challenge that uses Nest.js as its framework. It contains three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customers, by agents, or by countries.
+This challenge-project uses Nest.js to implement three resources (agents, customers and orders) with their respective CRUD endpoints. It also includes pagination when we need to list orders and three special endpoints of orders when we only need the total amount of money grouped by customers, agents, or by countries. This endpoints are protected, so, to consume them, you need to register yourself to get a valid JWT.
 
 The endpoints of the resources are:
 
 - [ ] /api/agents
 - [ ] /api/customers
 - [ ] /api/orders
+
+To register or to login:
+
+- [ ] /api/auth/register
+- [ ] /api/auth/login
 
 The documentation (swagger) can be found at:
 
