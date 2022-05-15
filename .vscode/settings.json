@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": true,
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
   "files.eol": "\r\n"
 }
