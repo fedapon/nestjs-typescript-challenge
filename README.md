@@ -34,6 +34,8 @@ The documentation (swagger) can be found at:
 To run this project, you will need to add the following environment variables to your .env file
 
 `PORT`
+`JWT_SECRET`
+
 `DB_HOST`
 `DB_PORT`
 `DB_USER`
@@ -52,31 +54,31 @@ And if we want to use docker-compose we have to add:
 Clone the project
 
 ```bash
-  git clone https://github.com/fedapon/challenge-nodejs-typescript
+git clone https://github.com/fedapon/challenge-nodejs-typescript
 ```
 
 Go to the project directory
 
 ```bash
-  cd challenge-nodejs-typescript
+cd challenge-nodejs-typescript
 ```
 
 Checkout to my challenge branch:
 
 ```bash
-  npm install
+npm install
 ```
 
 To start the server
 
 ```bash
-  npm run start
+npm run start
 ```
 
 And if we use docker-compose, instead of the last command, we use
 
 ```bash
-  docker-compose up
+docker-compose up
 ```
 
 ## Running Tests
@@ -84,6 +86,19 @@ And if we use docker-compose, instead of the last command, we use
 To run tests, run the following command
 
 ```bash
-  npm run test     		// Unit Tests
-  npm run test:e2e 		// Integration Tests
+npm run test     		// Unit Tests
+npm run test:e2e 		// Integration Tests
+```
+
+## Serverless
+
+To deploy, run the following commands:
+
+```bash
+npm run build
+```
+
+```bash
+npm run deploy:offline  // To deploy localy
+npm run deploy			// To deploy on AWS (configured on serverless.yaml)
 ```
