@@ -1,0 +1,35 @@
+service: nestjs-typescript-challenge
+
+frameworkVersion: "3"
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 6 # optional, in seconds, default is 6
+  stage: dev
+  region: us-east-2
+  environment: 
+    PORT: ${env:PORT}
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
+    DB_PASS: ${env:DB_PASS}
+    DB_DATABASE: ${env:DB_DATABASE}
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /{proxy+}
+
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
