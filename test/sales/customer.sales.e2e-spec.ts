@@ -1,14 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import request from 'supertest';
+import { AuthModule } from '../../src/auth/auth.module';
+import { UsersModule } from '../../src/users/users.module';
 import { SalesModule } from '../../src/sales/sales.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Agent } from '../../src/sales/models/agent.entity';
 import { Customer } from '../../src/sales/models/customer.entity';
 import { Order } from '../../src/sales/models/order.entity';
+import { User } from '../../src/users/models/user.entity';
 
 describe('SalesController (e2e)', () => {
   let app: INestApplication;
+
+  const access_token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiZW1haWwiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2NTI2NTA0NDMsImV4cCI6MTY1MjczNjg0M30.RdvfO1l4O8fnseWyAXZxjfBpG3x30rB-8gu0I5ThUjo';
 
   const customer = {
     custCode: 'C00001',
@@ -44,10 +51,16 @@ describe('SalesController (e2e)', () => {
 
   const mockAgentRepository = {};
   const mockOrderRepository = {};
+  const mockUserRepository = {};
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [SalesModule],
+      imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
+        AuthModule,
+        UsersModule,
+        SalesModule,
+      ],
     })
       .overrideProvider(getRepositoryToken(Agent))
       .useValue(mockAgentRepository)
@@ -55,6 +68,8 @@ describe('SalesController (e2e)', () => {
       .useValue(mockCustomerRepository)
       .overrideProvider(getRepositoryToken(Order))
       .useValue(mockOrderRepository)
+      .overrideProvider(getRepositoryToken(User))
+      .useValue(mockUserRepository)
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -70,6 +85,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (GET)', () => {
     return request(app.getHttpServer())
       .get('/api/customers')
+      .auth(access_token, { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([customer]);
@@ -78,6 +94,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (POST)', () => {
     return request(app.getHttpServer())
       .post('/api/customers')
+      .auth(access_token, { type: 'bearer' })
       .send(customer)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -87,6 +104,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (POST) should fail because missing parameters', () => {
     return request(app.getHttpServer())
       .post('/api/customers')
+      .auth(access_token, { type: 'bearer' })
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
@@ -95,6 +113,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (UPDATE)', () => {
     return request(app.getHttpServer())
       .patch('/api/customers/C00001')
+      .auth(access_token, { type: 'bearer' })
       .send({ custName: 'Jhon Smith' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
@@ -104,6 +123,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (UPDATE) should fail because invalid parameter', () => {
     return request(app.getHttpServer())
       .patch('/api/customers/C00001')
+      .auth(access_token, { type: 'bearer' })
       .send({ custName: 1 })
       .expect(400)
       .expect('Content-Type', /application\/json/);
@@ -112,6 +132,7 @@ describe('SalesController (e2e)', () => {
   it('/api/customers (DELETE)', () => {
     return request(app.getHttpServer())
       .delete('/api/customers/C00001')
+      .auth(access_token, { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
