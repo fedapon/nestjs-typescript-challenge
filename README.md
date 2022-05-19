@@ -54,18 +54,13 @@ And if we want to use docker-compose we have to add:
 Clone the project
 
 ```bash
-git clone https://github.com/fedapon/challenge-nodejs-typescript
+git clone https://github.com/fedapon/nestjs-typescript-challenge
 ```
 
 Go to the project directory
 
 ```bash
-cd challenge-nodejs-typescript
-```
-
-Checkout to my challenge branch:
-
-```bash
+cd nestjs-typescript-challenge
 npm install
 ```
 
