@@ -34,11 +34,14 @@ jest.mock('nestjs-typeorm-paginate', () => ({
   }),
 }));
 
+jest.mock('bcryptjs', () => {
+  return {
+    compare: jest.fn().mockImplementation(() => Promise.resolve(true)),
+  };
+});
+
 describe('SalesController (e2e)', () => {
   let app: INestApplication;
-
-  const access_token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiZW1haWwiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2NTI2NTA0NDMsImV4cCI6MTY1MjczNjg0M30.RdvfO1l4O8fnseWyAXZxjfBpG3x30rB-8gu0I5ThUjo';
 
   const order = {
     ordNum: '200101',
@@ -103,7 +106,11 @@ describe('SalesController (e2e)', () => {
 
   const mockAgentRepository = {};
   const mockCustomerRepository = {};
-  const mockUserRepository = {};
+  const mockUserRepository = {
+    findOne: jest
+      .fn()
+      .mockImplementation((user) => Promise.resolve({ ...user, id: 1 })),
+  };
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -134,10 +141,20 @@ describe('SalesController (e2e)', () => {
     await app.init();
   });
 
-  it('/api/orders (GET)', () => {
+  async function getValidToken() {
+    const {
+      body: { access_token },
+    } = await request(app.getHttpServer()).post('/api/auth/login').send({
+      email: 'demo@demo.com',
+      password: 'demo',
+    });
+    return access_token;
+  }
+
+  it('/api/orders (GET)', async () => {
     return request(app.getHttpServer())
       .get('/api/orders')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
@@ -162,48 +179,48 @@ describe('SalesController (e2e)', () => {
       });
   });
 
-  it('/api/orders (POST)', () => {
+  it('/api/orders (POST)', async () => {
     return request(app.getHttpServer())
       .post('/api/orders')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send(order)
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect(order);
   });
 
-  it('/api/orders (POST) should fail because missing parameters', () => {
+  it('/api/orders (POST) should fail because missing parameters', async () => {
     return request(app.getHttpServer())
       .post('/api/orders')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/api/orders (UPDATE)', () => {
+  it('/api/orders (UPDATE)', async () => {
     return request(app.getHttpServer())
       .patch('/api/orders/200101')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({ custCode: 'C00001' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({ ordNum: '200101', custCode: 'C00001' });
   });
 
-  it('/api/orders (UPDATE) should fail because invalid parameter', () => {
+  it('/api/orders (UPDATE) should fail because invalid parameter', async () => {
     return request(app.getHttpServer())
       .patch('/api/orders/200101')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({ ordAmount: 'A' })
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/api/orders (DELETE)', () => {
+  it('/api/orders (DELETE)', async () => {
     return request(app.getHttpServer())
       .delete('/api/orders/200101')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
@@ -212,10 +229,10 @@ describe('SalesController (e2e)', () => {
       });
   });
 
-  it('should get total amount by customer', () => {
+  it('should get total amount by customer', async () => {
     return request(app.getHttpServer())
       .get('/api/orders/total-amount-by-customer')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([
@@ -226,10 +243,10 @@ describe('SalesController (e2e)', () => {
       ]);
   });
 
-  it('should get total amount by agent', () => {
+  it('should get total amount by agent', async () => {
     return request(app.getHttpServer())
       .get('/api/orders/total-amount-by-agent')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([
@@ -240,10 +257,10 @@ describe('SalesController (e2e)', () => {
       ]);
   });
 
-  it('should get total amount by country', () => {
+  it('should get total amount by country', async () => {
     return request(app.getHttpServer())
       .get('/api/orders/total-amount-by-country')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([

@@ -11,11 +11,14 @@ import { Customer } from '../../src/sales/models/customer.entity';
 import { Order } from '../../src/sales/models/order.entity';
 import { User } from '../../src/users/models/user.entity';
 
+jest.mock('bcryptjs', () => {
+  return {
+    compare: jest.fn().mockImplementation(() => Promise.resolve(true)),
+  };
+});
+
 describe('SalesController (e2e)', () => {
   let app: INestApplication;
-
-  const access_token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiZW1haWwiOiJtYXJpYUBnbWFpbC5jb20iLCJpYXQiOjE2NTI2NTA0NDMsImV4cCI6MTY1MjczNjg0M30.RdvfO1l4O8fnseWyAXZxjfBpG3x30rB-8gu0I5ThUjo';
 
   const customer = {
     custCode: 'C00001',
@@ -51,7 +54,11 @@ describe('SalesController (e2e)', () => {
 
   const mockAgentRepository = {};
   const mockOrderRepository = {};
-  const mockUserRepository = {};
+  const mockUserRepository = {
+    findOne: jest
+      .fn()
+      .mockImplementation((user) => Promise.resolve({ ...user, id: 1 })),
+  };
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -82,57 +89,67 @@ describe('SalesController (e2e)', () => {
     await app.init();
   });
 
-  it('/api/customers (GET)', () => {
+  async function getValidToken() {
+    const {
+      body: { access_token },
+    } = await request(app.getHttpServer()).post('/api/auth/login').send({
+      email: 'demo@demo.com',
+      password: 'demo',
+    });
+    return access_token;
+  }
+
+  it('/api/customers (GET)', async () => {
     return request(app.getHttpServer())
       .get('/api/customers')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect([customer]);
   });
 
-  it('/api/customers (POST)', () => {
+  it('/api/customers (POST)', async () => {
     return request(app.getHttpServer())
       .post('/api/customers')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send(customer)
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect(customer);
   });
 
-  it('/api/customers (POST) should fail because missing parameters', () => {
+  it('/api/customers (POST) should fail because missing parameters', async () => {
     return request(app.getHttpServer())
       .post('/api/customers')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({})
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/api/customers (UPDATE)', () => {
+  it('/api/customers (UPDATE)', async () => {
     return request(app.getHttpServer())
       .patch('/api/customers/C00001')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({ custName: 'Jhon Smith' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({ custCode: 'C00001', custName: 'Jhon Smith' });
   });
 
-  it('/api/customers (UPDATE) should fail because invalid parameter', () => {
+  it('/api/customers (UPDATE) should fail because invalid parameter', async () => {
     return request(app.getHttpServer())
       .patch('/api/customers/C00001')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .send({ custName: 1 })
       .expect(400)
       .expect('Content-Type', /application\/json/);
   });
 
-  it('/api/customers (DELETE)', () => {
+  it('/api/customers (DELETE)', async () => {
     return request(app.getHttpServer())
       .delete('/api/customers/C00001')
-      .auth(access_token, { type: 'bearer' })
+      .auth(await getValidToken(), { type: 'bearer' })
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .expect({
