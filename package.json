@@ -8,8 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "deploy": "sls deploy",
-    "deploy:offline": "sls offline",
+    "deploy": "npm run test && npm run test:e2e && npm run build && sls deploy",
+    "deploy:offline": "npm run build && sls offline",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
