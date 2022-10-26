@@ -1,13 +1,9 @@
 pipeline {
-  agent {
-    node {
-      label 'node'
-    }
-
-  }
+  agent any
   stages {
     stage('clone') {
       steps {
+        tool 'nodejs'
         git(url: 'https://github.com/fedapon/nestjs-typescript-challenge.git', branch: 'main')
         sh 'npm install'
       }
